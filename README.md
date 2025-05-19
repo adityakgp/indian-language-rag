@@ -25,8 +25,7 @@ This project is a multilingual transcript **search and QA system** optimized for
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/transcript-qa.git
-cd transcript-qa
+git clone https://github.com/adityakgp/indian-language-rag.git
 ```
 
 ### 2. Install Dependencies
