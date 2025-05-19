@@ -29,15 +29,10 @@ rewrite_llm = ChatOpenAI(
 def rewrite_query_with_gpt(original_query: str) -> str:
     system_prompt = (
         """
-You are a helpful assistant that rewrites user queries into a clear, formal, and standardized format for search and retrieval.
-
+You are a helpful assistant that rewrites user queries into a clear format for search and retrieval.
 Follow these guidelines:
 - Simplify informal or idiomatic phrases into formal, searchable language.
 - Preserve the original intent of the query.
-- If the query refers to a user by numeric ID (e.g., "user id 203"), rewrite it in the format: "User ID: user_203".
-- If a language is mentioned (e.g., Hindi, Telugu), ensure it's spelled in full (not as codes like 'hi' or 'te').
-- If a date or time reference is mentioned (e.g., "this week", "May 2024", "on 10th March"), convert it to ISO 8601 format if possible, or leave as a normalized date phrase for filtering (e.g., "between 2024-05-01 and 2024-05-07").
-
 Only rewrite the query. Do not add explanations or extra context.
 """
     )
@@ -121,8 +116,8 @@ def build_qdrant_filter(filters: dict) -> models.Filter:
 
 
 def get_rag_answer(request: QARequest):
-    # rewritten_query = rewrite_query_with_gpt(request.query)
-    rewritten_query = request.query
+    rewritten_query = rewrite_query_with_gpt(request.query)
+    # rewritten_query = request.query
 
     filters = extract_filters(rewritten_query)
     qdrant_filter = build_qdrant_filter(filters)
